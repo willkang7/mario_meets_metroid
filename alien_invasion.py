@@ -21,7 +21,7 @@ class AlienInvasion:
 		self.ship = Ship(self)
 
 	def run_game(self):
-		"""Starts the main loop for the game."""
+		"""Start the main loop for the game."""
 		while True:
 			self._check_events()
 			self._update_screen()
