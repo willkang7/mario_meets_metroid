@@ -18,3 +18,8 @@ A wild metroid appears! What will mario do?
 - This contains the Ship class
 - The update() method manages the ship's position
 - The blitme() method draws the ship to the screen
+
+### bullet.py
+- This contains the Bullet class
+- The update() method manages the bullet's position
+- The draw_bullet() method draws the bullet to the screen
