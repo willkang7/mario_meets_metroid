@@ -8,8 +8,8 @@ class Settings:
 		self.screen_height = 600
 		self.bg_color = (160,172,254)
 
-		# Ship settings
-		self.ship_speed = 0.5
+		# Mario settings
+		self.mario_speed = 0.5
 
 		# Bullet settings
 		self.bullet_speed = 0.4
