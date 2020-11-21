@@ -1,7 +1,9 @@
 import sys
 import pygame
+from time import sleep
 
 from settings import Settings
+from game_stats import GameStats
 from mario import Mario
 from bullet import Bullet
 from alien import Alien
@@ -20,6 +22,9 @@ class AlienInvasion:
 		self.settings.screen_height = self.screen.get_rect().height
 		pygame.display.set_caption('Alien Invasion')
 
+		# Create an instance to store game statistics.
+		self.stats = GameStats(self)
+
 		self.mario = Mario(self)
 		self.bullets = pygame.sprite.Group()
 		self.aliens = pygame.sprite.Group()
@@ -30,9 +35,12 @@ class AlienInvasion:
 		"""Start the main loop for the game."""
 		while True:
 			self._check_events()
-			self.mario.update()
-			self._update_bullets()
-			self._update_aliens()
+
+			if self.stats.game_active:
+				self.mario.update()
+				self._update_bullets()
+				self._update_aliens()
+			
 			self._update_screen()
 
 	def _check_events(self):
@@ -73,6 +81,19 @@ class AlienInvasion:
 			if bullet.rect.bottom <= 0:
 				self.bullets.remove(bullet)
 
+		self._check_bullet_alien_collisions()
+
+	def _check_bullet_alien_collisions(self):
+		"""Respond to bullet-alien collisions."""
+		# Remove any bullets and aliens that have collided.
+		collisions = pygame.sprite.groupcollide(
+			self.bullets, self.aliens, True, True)
+
+		if not self.aliens:
+			# Destroy existing bullets and create new fleet.
+			self.bullets.empty()
+			self._create_fleet()
+
 	def _update_aliens(self):
 		"""
 		Check if the fleet is at an edge,
@@ -80,6 +101,41 @@ class AlienInvasion:
 		"""
 		self._check_fleet_edges()
 		self.aliens.update()
+
+		# Look for alien-mario collisions.
+		if pygame.sprite.spritecollideany(self.mario, self.aliens):
+			self._mario_hit()
+
+		# Look for aliens hitting the bottom of the screen.
+		self._check_aliens_bottom()
+
+	def _check_aliens_bottom(self):
+		"""Check if any aliens have reached the bottom of the screen."""
+		screen_rect = self.screen.get_rect()
+		for alien in self.aliens.sprites():
+			if alien.rect.bottom >= screen_rect.bottom:
+				# Treat this the same as if mario got hit.
+				self._mario_hit()
+				break
+
+	def _mario_hit(self):
+		"""Respond to mario being hit by an alien."""
+		if self.stats.marios_left > 0:
+			# Decrement marios_left.
+			self.stats.marios_left -= 1
+
+			# Get rid any remaining aliens and bullets.
+			self.aliens.empty()
+			self.bullets.empty()
+
+			# Create a new fleet and center mario.
+			self._create_fleet()
+			self.mario.center_mario()
+
+			# Pause.
+			sleep(0.5)
+		else:
+			self.stats.game_active = False
 
 	def _create_fleet(self):
 		"""Create the fleet of aliens."""

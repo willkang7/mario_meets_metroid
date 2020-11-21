@@ -10,6 +10,7 @@ class Settings:
 
 		# Mario settings
 		self.mario_speed = 0.5
+		self.mario_limit = 3
 
 		# Bullet settings
 		self.bullet_speed = 0.4
