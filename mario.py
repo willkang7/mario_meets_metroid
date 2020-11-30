@@ -13,7 +13,7 @@ class Mario(Sprite):
 		self.screen_rect = ai_game.screen.get_rect()
 
 		# Load the mario image and get its rect.
-		self.image = pygame.image.load('images/mario.bmp')
+		self.image = pygame.image.load('images/mario_right.bmp')
 		self.rect = self.image.get_rect()
 
 		# Start each new mario at the bottom center of the screen.
@@ -31,7 +31,7 @@ class Mario(Sprite):
 		# Update mario's x value, not the rect.
 		if self.moving_right and self.rect.right < self.screen_rect.right:
 			self.x += self.settings.mario_speed
-			self.image = pygame.image.load('images/mario.bmp')
+			self.image = pygame.image.load('images/mario_right.bmp')
 		if self.moving_left and self.rect.left > 0:
 			self.x -= self.settings.mario_speed
 			self.image = pygame.image.load('images/mario_left.bmp')

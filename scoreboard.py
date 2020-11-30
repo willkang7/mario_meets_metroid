@@ -64,7 +64,7 @@ class Scoreboard:
 		self.marios = Group()
 		for mario_number in range(self.stats.marios_left):
 			mario = Mario(self.ai_game)
-			mario.rect.x = 10 + mario_number * mario.rect.width
+			mario.rect.x = 10 + mario_number * (mario.rect.width + 10)
 			mario.rect.y = 10
 			self.marios.add(mario)
 
