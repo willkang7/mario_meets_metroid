@@ -4,6 +4,7 @@ from time import sleep
 
 from settings import Settings
 from game_stats import GameStats
+from scoreboard import Scoreboard
 from mario import Mario
 from bullet import Bullet
 from alien import Alien
@@ -23,8 +24,10 @@ class AlienInvasion:
 		self.settings.screen_height = self.screen.get_rect().height
 		pygame.display.set_caption('Alien Invasion')
 
-		# Create an instance to store game statistics.
+		# Create an instance to store game statistics,
+		#	and create a scoreboard.
 		self.stats = GameStats(self)
+		self.sb = Scoreboard(self)
 
 		self.mario = Mario(self)
 		self.bullets = pygame.sprite.Group()
@@ -70,6 +73,9 @@ class AlienInvasion:
 			# Reset the game statistics.
 			self.stats.reset_stats()
 			self.stats.game_active = True
+			self.sb.prep_score()
+			self.sb.prep_level()
+			self.sb.prep_marios()
 
 			# Get rid of any remaining aliens and bullets.
 			self.aliens.empty()
@@ -118,11 +124,21 @@ class AlienInvasion:
 		collisions = pygame.sprite.groupcollide(
 			self.bullets, self.aliens, True, True)
 
+		if collisions:
+			for aliens in collisions.values():
+				self.stats.score += self.settings.alien_points * len(aliens)
+			self.sb.prep_score()
+			self.sb.check_high_score()
+
 		if not self.aliens:
 			# Destroy existing bullets and create new fleet.
 			self.bullets.empty()
 			self._create_fleet()
 			self.settings.increase_speed()
+
+			# Increase level.
+			self.stats.level += 1
+			self.sb.prep_level()
 
 	def _update_aliens(self):
 		"""
@@ -151,8 +167,9 @@ class AlienInvasion:
 	def _mario_hit(self):
 		"""Respond to mario being hit by an alien."""
 		if self.stats.marios_left > 0:
-			# Decrement marios_left.
+			# Decrement marios_left, and update scoreboard.
 			self.stats.marios_left -= 1
+			self.sb.prep_marios()
 
 			# Get rid any remaining aliens and bullets.
 			self.aliens.empty()
@@ -194,7 +211,7 @@ class AlienInvasion:
 		alien_width, alien_height = alien.rect.size
 		alien.x = alien_width + 2 * alien_width * alien_number
 		alien.rect.x = alien.x
-		alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
+		alien.rect.y = 2 * alien.rect.height + 2 * alien.rect.height * row_number
 		self.aliens.add(alien)
 
 	def _check_fleet_edges(self):
@@ -217,6 +234,9 @@ class AlienInvasion:
 		for bullet in self.bullets.sprites():
 			bullet.draw_bullet()
 		self.aliens.draw(self.screen)
+
+		# Draw the score information.
+		self.sb.show_score()
 
 		# Draw the play button if the game is inactive.
 		if not self.stats.game_active:
