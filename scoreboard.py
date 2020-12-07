@@ -19,10 +19,7 @@ class Scoreboard:
 		self.font = pygame.font.SysFont(None, 48)
 
 		# Prepare the initial score images.
-		self.prep_score()
-		self.prep_high_score()
-		self.prep_level()
-		self.prep_marios()
+		self.prep_images()
 
 	def prep_score(self):
 		"""Turn the score into a rendered image."""
@@ -67,6 +64,13 @@ class Scoreboard:
 			mario.rect.x = 10 + mario_number * (mario.rect.width + 10)
 			mario.rect.y = 10
 			self.marios.add(mario)
+
+	def prep_images(self):
+		"""Prepare the initial score images."""
+		self.prep_score()
+		self.prep_high_score()
+		self.prep_level()
+		self.prep_marios()
 
 	def show_score(self):
 		"""Draw scores, level and marios to the screen."""
