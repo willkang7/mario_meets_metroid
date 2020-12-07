@@ -9,6 +9,8 @@ To run the project locally, install Python 3 and pygame.
 
 `pip install pygame`
 
+Also, create a file called 'high_score.json' and populate it with 0.
+
 ## Usage
 To play the game, run the alien_invasion.py file.
 
