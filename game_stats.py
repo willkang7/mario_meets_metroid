@@ -26,4 +26,3 @@ class GameStats:
 		"""Save the high score."""
 		with open(self.filename, 'w') as f:
 			json.dump(self.high_score, f)
-		print(self.high_score)
