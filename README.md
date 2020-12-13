@@ -5,15 +5,14 @@ tests the limits of his flower power against endless waves of floating,
 parasitic jellyfish.
 
 ## Installation
-To run the project locally, install Python 3 and pygame.
-
-`pip install pygame`
-
-Also, create a file called 'high_score.json' and populate it with 0.
+This project uses Python 3 and Pygame.
 
 ## Usage
-To play the game, run the alien_invasion.py file.
+### How to Start a Game
+1. Create 'high_score.json' and populate it with 0.
+1. Run the alien_invasion.py file.
 
+### Controls
 Key | Function
 ------------ | -------------
 LEFT | Move left
@@ -22,13 +21,13 @@ SPACEBAR | Fireball
 Q | Quit
 
 ## Contributing
-First off, thank you for considering contributing to Mario Meets Metroid!
-To contribute, please follow [GitHub Flow](https://guides.github.com/introduction/flow/).
+Pull requests are the best way to propose changes to the codebase
+(we use Github Flow). We actively welcome your pull requests:
 
-1. Fork the repo and create your branch from master.
-1. If you've added code that should be tested, playtest the game.
+1. Fork the repo and create your branch from main.
+1. If you've added code that should be tested, test it.
 1. If you've changed APIs, update the documentation.
-1. Make sure your code lints (i.e. this project uses tabs).
+1. Make sure your code lints.
 1. Issue that pull request!
 
 ## Credits
