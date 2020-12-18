@@ -30,6 +30,22 @@ class Mario(Sprite):
 		self.moving_right = False
 		self.moving_left = False
 
+	def _prep_images(self):
+		"""Prepare the mario images."""
+		self.right = [
+			pygame.image.load('images/right_0.png'),
+			pygame.image.load('images/right_1.png'),
+			pygame.image.load('images/right_0.png'),
+			pygame.image.load('images/right_2.png'),
+			]
+		self.left = [
+			pygame.image.load('images/left_0.png'),
+			pygame.image.load('images/left_1.png'),
+			pygame.image.load('images/left_0.png'),
+			pygame.image.load('images/left_2.png'),
+			]
+		self.dead = pygame.image.load('images/dead.png')
+
 	def update(self):
 		"""Update mario's position based on movement flags."""
 		# Update mario's x value, not the rect.
@@ -72,17 +88,6 @@ class Mario(Sprite):
 		self.rect.midbottom = self.screen_rect.midbottom
 		self.x = float(self.rect.x)
 
-	def _prep_images(self):
-		"""Prepare the mario images."""
-		self.right = [
-			pygame.image.load('images/right_0.png'),
-			pygame.image.load('images/right_1.png'),
-			pygame.image.load('images/right_0.png'),
-			pygame.image.load('images/right_2.png'),
-			]
-		self.left = [
-			pygame.image.load('images/left_0.png'),
-			pygame.image.load('images/left_1.png'),
-			pygame.image.load('images/left_0.png'),
-			pygame.image.load('images/left_2.png'),
-			]
+	def destroy_mario(self):
+		"""Update mario image."""
+		self.image = self.dead

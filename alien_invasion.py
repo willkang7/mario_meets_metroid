@@ -170,6 +170,11 @@ class AlienInvasion:
 
 	def _mario_hit(self):
 		"""Respond to mario being hit by an alien."""
+		# Update mario one last time.
+		self.mario.destroy_mario()
+		self._update_screen()
+
+		# Reset the round if there are more lives left.
 		if self.stats.marios_left > 0:
 			# Decrement marios_left, and update scoreboard.
 			self.stats.marios_left -= 1
