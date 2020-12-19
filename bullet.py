@@ -11,7 +11,7 @@ class Bullet(Sprite):
 		self.settings = ai_game.settings
 
 		# Create a bullet rect at (0, 0) and then set correct position.
-		self.image = pygame.image.load('images/fireball.png')
+		self.image = pygame.image.load('images/firestorm.png')
 		self.rect = self.image.get_rect()
 		self.rect.midtop = ai_game.mario.rect.midtop
 
@@ -24,7 +24,3 @@ class Bullet(Sprite):
 		self.y -= self.settings.bullet_speed
 		# Update the rect position.
 		self.rect.y = self.y
-
-	def draw_bullet(self):
-		"""Draw the bullet to the screen."""
-		self.screen.blit(self.image, self.rect)
