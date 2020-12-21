@@ -38,6 +38,10 @@ class AlienInvasion:
 		# Make the play button.
 		self.play_button = Button(self, 'Play')
 
+		# Play the music.
+		pygame.mixer.music.load('sounds/mario_theme.mp3')
+		pygame.mixer.music.play(loops=-1, start=1.0)
+
 	def run_game(self):
 		"""Start the main loop for the game."""
 		while True:

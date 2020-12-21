@@ -11,7 +11,7 @@ class Bullet(Sprite):
 		self.settings = ai_game.settings
 
 		# Create a bullet rect at (0, 0) and then set correct position.
-		self.image = pygame.image.load('images/firestorm.png')
+		self.image = pygame.image.load('images/fireball.png')
 		self.rect = self.image.get_rect()
 		self.rect.midtop = ai_game.mario.rect.midtop
 
