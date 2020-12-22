@@ -38,10 +38,6 @@ class AlienInvasion:
 		# Make the play button.
 		self.play_button = Button(self, 'Play')
 
-		# Play the music.
-		pygame.mixer.music.load('sounds/mario_theme.mp3')
-		pygame.mixer.music.play(loops=-1, start=1.0)
-
 	def run_game(self):
 		"""Start the main loop for the game."""
 		while True:
@@ -90,6 +86,10 @@ class AlienInvasion:
 
 			# Hide the mouse cursor.
 			pygame.mouse.set_visible(False)
+
+			# Play music.
+			pygame.mixer.music.load('sounds/mario_theme.mp3')
+			pygame.mixer.music.play(loops=-1, start=1.5)
 
 	def _check_keydown_events(self, event):
 		"""Respond to keypresses."""
@@ -174,6 +174,10 @@ class AlienInvasion:
 
 	def _mario_hit(self):
 		"""Respond to mario being hit by an alien."""
+		# Play death sound.
+		pygame.mixer.music.load('sounds/death_sound.mp3')
+		pygame.mixer.music.play(start=0.5)
+
 		# Update mario one last time.
 		self.mario.destroy_mario()
 		self._update_screen()
@@ -193,7 +197,11 @@ class AlienInvasion:
 			self.mario.center_mario()
 
 			# Pause.
-			sleep(0.5)
+			sleep(3.5)
+
+			# Play music.
+			pygame.mixer.music.load('sounds/mario_theme.mp3')
+			pygame.mixer.music.play(loops=-1, start=1.5)
 		else:
 			self.stats.game_active = False
 			pygame.mouse.set_visible(True)
