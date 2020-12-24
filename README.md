@@ -20,6 +20,8 @@ RIGHT | Move right
 SPACEBAR | Fireball
 Q | Quit
 
+![Mario demo](images/mario_demo.gif)
+
 ## Contributing
 Pull requests are the best way to propose changes to the codebase
 (we use Github Flow). We actively welcome your pull requests:
